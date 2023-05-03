@@ -1,6 +1,6 @@
-use std::ptr;
+use std::{ptr, mem};
 
-use crate::BufferExt;
+use crate::{BufferExt, buffer::Inserter};
 use crate::BufferSliceExt;
 use crate::ProgramExt;
 use crate::DrawError;
@@ -33,7 +33,7 @@ pub fn draw<'a, U, V>(context: &Context, framebuffer: Option<&ValidatedAttachmen
 {
     // this contains the list of fences that will need to be fulfilled after the draw command
     // has started
-    let mut fences = Vec::with_capacity(0);
+    let mut fences = context.get_fences();
 
     // handling tessellation
     let vertices_per_patch = match indices.get_primitives_type() {
@@ -328,9 +328,13 @@ pub fn draw<'a, U, V>(context: &Context, framebuffer: Option<&ValidatedAttachmen
     ctxt.state.next_draw_call_id += 1;
 
     // fulfilling the fences
-    for fence in fences.into_iter() {
+    for f in fences.iter_mut() {
+        #[allow(invalid_value)]
+        let mut fence: Inserter = unsafe { mem::MaybeUninit::zeroed().assume_init() };
+        mem::swap(f, &mut fence);
         fence.insert(&mut ctxt);
     }
+    fences.clear();
 
     Ok(())
 }

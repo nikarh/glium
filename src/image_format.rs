@@ -390,6 +390,9 @@ impl UncompressedFloatFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -647,6 +650,9 @@ impl SrgbFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -738,6 +744,9 @@ impl UncompressedIntFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -899,6 +908,9 @@ impl UncompressedUintFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -1071,6 +1083,9 @@ impl CompressedFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -1161,6 +1176,9 @@ impl CompressedSrgbFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
@@ -1228,6 +1246,9 @@ impl DepthFormat {
 
     /// Returns true if this format is supported by the backend.
     pub fn is_supported<C: ?Sized>(&self, context: &C) -> bool where C: CapabilitiesSource {
+        #[cfg(target_os = "vita")]
+        return true;
+
         let version = context.get_version();
         let extensions = context.get_extensions();
 
